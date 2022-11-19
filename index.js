@@ -4,8 +4,6 @@ const io = require('socket.io')(1884, {
         methods: ["GET", "POST"]
     }
 });
-
-
 const settings = {
     interfaces: [
         { type: "mqtt", port: 1883 },
@@ -19,14 +17,14 @@ broker.on('ready', setup);
 io.on('connection', socket => {
     console.log('WS Connect: ' + socket.id);
     socket.onAny((topic, msg) => {
-        // console.log('response.topic: ' + topic)
-        // console.log('response.body: ' + msg)
+        console.log('response.topic: ' + topic)
+        console.log('response.body: ' + msg)
         broker.publish({
             topic: topic,
             payload: msg
         })
     });
-    socket.on('disconnect',()=>{
+    socket.on('disconnect', () => {
         console.log('WS Disconnect: ', socket.id);
     })
 });
@@ -36,8 +34,8 @@ broker.on('clientConnected', function (client) {
 });
 
 broker.on('published', (msg) => {
-    // console.log('response.topic: '+msg.topic)
-    // console.log('response.body: ' + msg.payload.toString())
+    console.log('response.topic: ' + msg.topic)
+    console.log('response.body: ' + msg.payload.toString())
     io.emit(msg.topic, msg.payload.toString());
 });
 
