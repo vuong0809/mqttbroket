@@ -1,12 +1,12 @@
 const mosca = require('mosca');
-const io = require('socket.io')(9984, {
+const io = require('socket.io')(8080, {
     cors: {
         methods: ["GET", "POST"]
     }
 });
 const settings = {
     interfaces: [
-        { type: "mqtt", port: 9983 },
+        { type: "mqtt", port: 1883 },
     ]
 };
 
